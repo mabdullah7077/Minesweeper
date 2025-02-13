@@ -6,7 +6,7 @@ public class Tile {
     private boolean isMine; // determines if tile is a mine
     private int adjacentMines; // stores number of mines adjacent to tile
 
-    public Tile(boolean isMine) { // constructor for tile class
+    public Tile(boolean isMine) { // constructor for tile class taking isMine as a parameter
         this.isMine = isMine;
         this.isRevealed = false;
         this.adjacentMines = 0;
@@ -46,9 +46,8 @@ public class Tile {
             System.out.println("Tile with " + adjacentMines + " adjacent mines revealed"); // print tile and adjacent mines revealed
         }
     }
-    
 
-    public String displayTileResult(){ // ouput once tile is revealed
+    public String toString(){ // ouput once tile is revealed
         if (!isRevealed) { // if tile not yet revealed
             return "-"; // display a dash on the tile
             }
@@ -63,6 +62,10 @@ public class Tile {
 
         return " "; // if tile is revealed and no adjacent mines, return blank space
 
+    }
+
+    public boolean isEmpty() {
+        return !isMine && adjacentMines == 0;
     }
 
 }
