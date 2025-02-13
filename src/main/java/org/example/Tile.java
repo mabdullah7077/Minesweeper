@@ -12,22 +12,6 @@ public class Tile {
         this.adjacentMines = 0;
     }
 
-    public void revealTile() {
-        if (isRevealed) { // if tile is already revealed, do nothing
-            return;
-        }
-
-        isRevealed = true; // set is revealed boolean to true given previous if statement is not run
-
-        if (isMine) {
-            System.out.println("Game over! You blew up a mine!"); // print game over message if mine is hit
-        } else if (adjacentMines == 0) {
-            System.out.println("Empty tile revealed"); // print empty tile revealed if tile is not a mine and there are no adjacent mines
-        } else {
-            System.out.println("Tile with " + adjacentMines + " adjacent mines revealed"); // print tile and adjacent mines revealed
-        }
-    }
-
     // getters for tile attributes
     public boolean isMine() {
         return isMine;
@@ -47,7 +31,24 @@ public class Tile {
         this.adjacentMines = count;
     }
 
-    public String displayTile(){
+    public void revealTile() { // logic for flipping a tile
+        if (isRevealed) { // if tile is already revealed, return nothing
+            return;
+        }
+
+        isRevealed = true; // set is revealed boolean to true given previous if statement is not run
+
+        if (isMine) { // if user reveals a ine
+            System.out.println("Game over! You blew up a mine!"); // print game over message if mine is hit
+        } else if (adjacentMines == 0) { // if no adjacent mines in tile that user revealed
+            System.out.println("Empty tile revealed"); // print empty tile revealed if tile is not a mine and there are no adjacent mines
+        } else {
+            System.out.println("Tile with " + adjacentMines + " adjacent mines revealed"); // print tile and adjacent mines revealed
+        }
+    }
+    
+
+    public String displayTileResult(){ // ouput once tile is revealed
         if (!isRevealed) { // if tile not yet revealed
             return "-"; // display a dash on the tile
             }
