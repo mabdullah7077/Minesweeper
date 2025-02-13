@@ -29,23 +29,43 @@ public class Board {
         return tiles[x][y];
     }
 
-    private void setupStartingBoard(){
+    private void setupStartingBoard(){ // initalise board
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                tiles[x][y] = new Tile(false);
+                tiles[x][y] = new Tile(false); // set board to have no mines initially
             }
         }
     }
 
-    public void printBoard() {
+    private void placeMines() {
+        Random random = new Random(); // create random object
+        int minesPlaced = 0; // initailse mines places to 0
+
+        while (minesPlaced < numOfMines) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(height); // generate random tile coordinates
+
+            if (!tiles[x][y].isMine()) { // if mine is not already on current tile
+                tiles[x][y] = new Tile(true); // add mine on tile
+                minesPlaced++; // increment minesPlaced
+            }
+        }
+    }
+
+
+
+
+    public void printBoard() { // prints each element of 2d tiles array
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                System.out.print(tiles[x][y] + " ");
+                System.out.print(tiles[x][y] + " "); // add space between elements for easier view
             }
             System.out.println();
         }
     }
 
 
-
 }
+
+
+
