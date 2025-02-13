@@ -52,12 +52,36 @@ public class Board {
         }
     }
 
+    private void calculateAdjacentMines() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) { // loop through every tile on the board
+                if (!tiles[x][y].isMine()) { // if tile is not a mine
+                    tiles[x][y].setAdjacentMines(countAdjacentMines(x, y)); // call countAdjacentMines and set result to number of adjecent mines for current tile
+                }
+            }
+        }
+    }
 
+    private int countAdjacentMines(int x, int y) { // count how many mines are surrounding tile at position x,y
+        int count = 0; // initialise count variable
+
+        for (int i = -1; i <= 1; i++) { // loop from -1 to 1 to cover left, current and right tile
+            for (int j = -1; j <= 1; j++) { // loop from -1 to 1 to cover above, current and below tile
+                int newX = x + i; // calculate new x coordinate
+                int newY = y + j; // calculate new y coordinate
+
+                if (tiles[newX][newY].isMine()) { // check if surrounding tile is a mine
+                    count++; // increase adjacent mine count
+                }
+            }
+        }
+        return count; 
+    }
 
 
     public void printBoard() { // prints each element of 2d tiles array
         for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+            for (int x = 0; x < width; x++) { // loop through each element of array
                 System.out.print(tiles[x][y] + " "); // add space between elements for easier view
             }
             System.out.println();
