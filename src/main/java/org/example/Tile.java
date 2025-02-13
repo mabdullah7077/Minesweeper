@@ -31,7 +31,7 @@ public class Tile {
         this.adjacentMines = count;
     }
 
-    public void revealTile() { // logic for flipping a tile
+    public void revealResult() { // outputs result once a tile has been flipped
         if (isRevealed) { // if tile is already revealed, return nothing
             return;
         }
@@ -47,13 +47,13 @@ public class Tile {
         }
     }
 
-    public String toString(){ // ouput once tile is revealed
+    public String toString(){ // logic for board symbols
         if (!isRevealed) { // if tile not yet revealed
             return "-"; // display a dash on the tile
             }
 
         if (isMine) { // if tile is revealed and tile is a mine
-            return "M"; // display M for mine
+            return "X"; // display X for mine
         }
 
         if (adjacentMines > 0) { // if there any mines adjacent to the revealed tile
