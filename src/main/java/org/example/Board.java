@@ -41,7 +41,7 @@ public class Board {
         Random random = new Random(); // create random object
         int minesPlaced = 0; // initailse mines places to 0
 
-        while (minesPlaced < numOfMines) {
+        while (minesPlaced < numOfMines) { // loop the process of placing a mine until numOfMines has been reached
             int x = random.nextInt(width);
             int y = random.nextInt(height); // generate random tile coordinates
 
@@ -75,9 +75,26 @@ public class Board {
                 }
             }
         }
-        return count; 
+        return count;
     }
 
+    public void revealTile(int x, int y) {
+        if (tiles[x][y].isRevealed()) { // if tile is already revealed, do nothing
+            return;
+        }
+
+        tiles[x][y].revealResult(); // print output of revealing current tile
+
+        if (tiles[x][y].isEmpty()) { // If the tile is empty
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) { // loop through neighbour tiles
+                    int newX = x + i;
+                    int newY = y + j;
+                    revealTile(newX, newY); // recursive function to reveal neighbour tiles
+                    }
+                }
+            }
+        }
 
     public void printBoard() { // prints each element of 2d tiles array
         for (int y = 0; y < height; y++) {
@@ -87,7 +104,6 @@ public class Board {
             System.out.println();
         }
     }
-
 
 }
 
