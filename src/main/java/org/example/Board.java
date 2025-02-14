@@ -13,8 +13,9 @@ public class Board {
         this.height = boardHeight;
         this.numOfMines = boardMines;
         this.tiles = new Tile[width][height]; // create 2d array of tile objects with width and height dimensions
-        setupStartingBoard();
-        printBoard();
+        setupBoard(); // initialise the game board
+        placeMines(); // place mines on random coordinates on board
+        calculateAdjacentMines(); // calculate number of adjacent mines for each tile if any
     }
 
     public int getWidth(){ //getter method for board width
@@ -25,11 +26,14 @@ public class Board {
         return height;
     }
 
-    public Tile getTile(int x, int y){ // getter method for specific tile at given x and y coordinates
-        return tiles[x][y];
+    public Tile getTile(int x, int y) {
+        if (isValidCoordinate(x, y)) {
+            return tiles[x][y];
+        }
+        return null;
     }
 
-    private void setupStartingBoard(){ // initalise board
+    private void setupBoard(){ // initalise board
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 tiles[x][y] = new Tile(false); // set board to have no mines initially
@@ -70,42 +74,48 @@ public class Board {
                 int newX = x + i; // calculate new x coordinate
                 int newY = y + j; // calculate new y coordinate
 
-                if (tiles[newX][newY].isMine()) { // check if surrounding tile is a mine
-                    count++; // increase adjacent mine count
+                if (isValidCoordinate(newX, newY) && tiles[newX][newY].isMine()) { // if new coordinates are valid and the tile at those coordinates is a mine
+                    count++; // increment mine count
                 }
             }
         }
-        return count;
+        return count; // return number of surrounding mines
     }
 
-    public void revealTile(int x, int y) {
-        if (tiles[x][y].isRevealed()) { // if tile is already revealed, do nothing
-            return;
+    private boolean isValidCoordinate(int x, int y) { // method do check if coordinates are within game bounds
+        return x >= 0 && x < width && y >= 0 && y < height; // return false if invalid
+    }
+
+    public void flipTile(int x, int y) {
+        if (!isValidCoordinate(x, y) || tiles[x][y].isFlipped()) {
+            return; // return nothing if invalid coordinates or tile already flipped
         }
 
-        tiles[x][y].revealResult(); // print output of revealing current tile
+        tiles[x][y].revealTileResult(); // print output of revealing current tile
 
-        if (tiles[x][y].isEmpty()) { // If the tile is empty
+        if (tiles[x][y].isTileEmpty()) { // If the tile is empty
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) { // loop through neighbour tiles
                     int newX = x + i;
                     int newY = y + j;
-                    revealTile(newX, newY); // recursive function to reveal neighbour tiles
+                    if (isValidCoordinate(newX, newY)) {
+                        flipTile(newX, newY); // recursively flip neighbour tiles if coordinates for new tile are valid
                     }
                 }
             }
         }
+    }
 
-    public void printBoard() { // prints each element of 2d tiles array
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) { // loop through each element of array
-                System.out.print(tiles[x][y] + " "); // add space between elements for easier view
+        public void printBoard() { // prints each element of 2d tiles array
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) { // loop through each element of array
+                    System.out.print(tiles[x][y] + " "); // add space between elements for easier view
+                }
+                System.out.println(); // print new line
             }
-            System.out.println();
         }
     }
 
-}
 
 
 
