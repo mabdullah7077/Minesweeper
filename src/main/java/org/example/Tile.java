@@ -44,16 +44,16 @@ public class Tile {
 
 
 
-    public String toString(){ // logic for printing string value of board symbols
+    public String toString(){ // logic for printing string value of tile symbols
         if (isFlagged) { // display F for flagged tiles
             return "F";
         }
         if (!isFlipped) { // if tile not yet flipped
-            return "X"; // display an X on the tile
+            return "X"; // display an X for empty tiles
             }
 
         if (isMine) { // if tile is flipped and tile is a mine
-            return "O"; // display O for mine
+            return "O"; // display O for mines
         }
 
 
