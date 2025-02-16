@@ -89,7 +89,7 @@ public class Game {
     }
 
 
-    private boolean isValidMove(int x, int y) { // method to validate move
+    private boolean isValidMove(int x, int y) { // method to validate coordinates
         return x >= 0 && x < board.getWidth() && y >= 0 && y < board.getHeight(); // check if coordinates entered are within board bounds
     }
 }
