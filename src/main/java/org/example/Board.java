@@ -71,10 +71,10 @@ public class Board {
     private int countAdjacentMines(int x, int y) { // count how many mines are surrounding tile at position xy
         int count = 0; // initialise count variable
 
-        for (int i = -1; i <= 1; i++) { // loop from -1 to 1 to cover left, current and right tile
-            for (int j = -1; j <= 1; j++) { // loop from -1 to 1 to cover above, current and below tile
-                int newX = x + i; // calculate new x coordinate
-                int newY = y + j; // calculate new y coordinate
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) { // loop through all neighbour tiles
+                int newX = x + i; // calculate neighbour x coordinate
+                int newY = y + j; // calculate neighbour y coordinate
 
                 if (isValidCoordinate(newX, newY) && tiles[newX][newY].isMine()) { // if new coordinates are valid and the tile at those coordinates is a mine
                     count++; // increment mine count
