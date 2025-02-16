@@ -35,7 +35,7 @@ public class Board {
         return null;
     }
 
-    private void setupBoard(){ // initalise board
+    private void setupBoard(){ // initialise board
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 tiles[x][y] = new Tile(false); // set board to have no mines initially
@@ -48,8 +48,8 @@ public class Board {
         int minesPlaced = 0; // initialise mines placed to 0
 
         while (minesPlaced < numOfMines) { // loop the process of placing a mine until numOfMines has been reached
-            int x = random.nextInt(width);
-            int y = random.nextInt(height); // generate random tile coordinates
+            int x = random.nextInt(width); // generate random number between 0 and width of board
+            int y = random.nextInt(height); // generate random number between 0 and height of baord
 
             if (!tiles[x][y].isMine()) { // if mine is not already on current tile
                 tiles[x][y] = new Tile(true); // add mine on tile
@@ -68,7 +68,7 @@ public class Board {
         }
     }
 
-    private int countAdjacentMines(int x, int y) { // count how many mines are surrounding tile at position x,y
+    private int countAdjacentMines(int x, int y) { // count how many mines are surrounding tile at position xy
         int count = 0; // initialise count variable
 
         for (int i = -1; i <= 1; i++) { // loop from -1 to 1 to cover left, current and right tile
