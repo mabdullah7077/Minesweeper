@@ -8,7 +8,7 @@ public class Board {
     private int numOfMines; // number of mines
     Tile[][] tiles; // create 2d array of tile objects
 
-    public Board (int boardWidth, int boardHeight, int boardMines) { // constructior to intialise board with dimensions and number of mines
+    public Board (int boardWidth, int boardHeight, int boardMines) { // constructor to initialise board with dimensions and number of mines
         this.width = boardWidth;
         this.height = boardHeight;
         this.numOfMines = boardMines;
@@ -19,14 +19,18 @@ public class Board {
     }
 
 
-    //setters
-    public int getWidth(){ //getter method for board width
+    // getters
+    public int getWidth(){
         return width;
     }
 
-    public int getHeight() { //getter method for board height
+    public int getHeight() {
         return height;
         }
+
+    public int getNumOfMines() { //getter method for board height
+        return numOfMines;
+    }
 
     public Tile getTile(int x, int y) { // getter method for tile from tile array
         if (isValidCoordinate(x, y)) { // check if coordinate is valid
@@ -89,22 +93,24 @@ public class Board {
     }
 
     public void flipTile(int x, int y) {
-        if (!isValidCoordinate(x, y) || tiles[x][y].isFlipped()) {
-            return; // return nothing if invalid coordinates or tile already flipped
+        if (!isValidCoordinate(x, y)) {
+            return; // return nothing if invalid coordinates
+        }
+
+        if (tiles[x][y].isFlipped()){
+            System.out.println("Tile already flipped"); // let user know that tile has already been flipped
         }
 
         if (!tiles[x][y].isFlipped()){
             tiles[x][y].setFlipped(true); // set isFlipped to true if it was previously false
         }
 
-
-
         if (tiles[x][y].isTileEmpty()) { // If the tile is empty
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) { // loop through neighbour tiles
                     int newX = x + i;
                     int newY = y + j;
-                    if (isValidCoordinate(newX, newY)) { // validate neighbour tile
+                    if (isValidCoordinate(newX, newY ) && !tiles[newX][newY].isFlipped()) { // validate neighbour tile coordinates and isFlipped status
                         flipTile(newX, newY); // recursively flip neighbour tiles
                     }
                 }
