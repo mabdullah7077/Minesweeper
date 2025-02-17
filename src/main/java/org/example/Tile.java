@@ -10,21 +10,20 @@ public class Tile {
     public Tile(boolean isMine) { // constructor for tile class taking isMine as a parameter
         this.isMine = isMine;
         this.isFlipped = false;
-        this.isFlagged = isFlagged();
+        this.isFlagged = getIsFlagged();
         this.adjacentMines = 0;
     }
 
     // getters
-    public boolean isMine() {
+    public boolean getIsMine() {
         return isMine;
     }
 
-    public boolean isFlagged(){
+    public boolean getIsFlagged(){
         return isFlagged;
     }
 
-
-    public boolean isFlipped() {
+    public boolean getIsFlipped() {
         return isFlipped;
     }
 
@@ -42,9 +41,7 @@ public class Tile {
         this.adjacentMines = count;
     }
 
-
-
-    public String toString(){ // logic for printing string value of tile symbols
+    public String toString(){ // logic for printing string value of tile symbols, called when printing an object to the console
         if (isFlagged) { // display F for flagged tiles
             return "F";
         }
@@ -56,12 +53,9 @@ public class Tile {
             return "O"; // display O for mines
         }
 
-
-        if (adjacentMines > 0) { // if there any mines adjacent to the flipped tile
+        if (adjacentMines > 0) { // if there are any mines adjacent to the flipped tile
             return String.valueOf(adjacentMines); // return number of adjacent mines
         }
-
-
 
         return "-"; // if tile is flipped  and no adjacent mines, display a dash
 
