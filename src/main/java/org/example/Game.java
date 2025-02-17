@@ -1,5 +1,6 @@
 package org.example;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Game {
@@ -31,6 +32,7 @@ public class Game {
                 handleTileFlip(x, y); // call method to flip tile
             }
         }
+        restartGame();
     }
 
     private void handleTileFlip(int x, int y) { //
@@ -58,8 +60,14 @@ public class Game {
         Tile tile = board.getTile(x, y); // get tile coordinates of tile currently being flagged
 
         if (tile.isFlipped()) { // if tile is already flipped
-            System.out.println("You cannot flag a revealed tile."); // print error message
+            System.out.println("You cannot flag a flipped tile."); // print error message
             return;
+        }
+
+        if (!tile.isFlagged){
+           System.out.println("Flagged tile: " + x + " " + y); // feedback to user to let them know they have flagged or unflagged a tile
+        } else {
+            System.out.println("Unflagged tile: " + x + " " + y);
         }
 
 
@@ -91,5 +99,23 @@ public class Game {
 
     private boolean isValidMove(int x, int y) { // method to validate coordinates
         return x >= 0 && x < board.getWidth() && y >= 0 && y < board.getHeight(); // check if coordinates entered are within board bounds
+    }
+
+    private void restartGame(){
+        while (true) {
+            System.out.println("Play again? Enter Y or N");
+            String input = scanner.next();
+
+            if (input.equalsIgnoreCase("Y")) {
+                Game newGame = new Game(board.getWidth(), board.getHeight(), board.getNumOfMines());
+                newGame.startGame();
+                break;
+            } else if (input.equalsIgnoreCase("N")) {
+                System.out.println("Thanks for playing Minesweeper!");
+                break;
+            } else {
+                System.out.println("Invalid input, please try again.");
+            }
+        }
     }
 }
