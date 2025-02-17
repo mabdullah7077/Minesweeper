@@ -53,9 +53,9 @@ public class Board {
 
         while (minesPlaced < numOfMines) { // loop the process of placing a mine until numOfMines has been reached
             int x = random.nextInt(width); // generate random number between 0 and width of board
-            int y = random.nextInt(height); // generate random number between 0 and height of baord
+            int y = random.nextInt(height); // generate random number between 0 and height of board
 
-            if (!tiles[x][y].isMine()) { // if mine is not already on current tile
+            if (!tiles[x][y].getIsMine()) { // if mine is not already on current tile
                 tiles[x][y] = new Tile(true); // add mine on tile
                 minesPlaced++; // increment minesPlaced
             }
@@ -65,8 +65,8 @@ public class Board {
     private void calculateAdjacentMines() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) { // loop through every tile on the board
-                if (!tiles[x][y].isMine()) { // if tile is not a mine
-                    tiles[x][y].setAdjacentMines(countAdjacentMines(x, y)); // call countAdjacentMines and set result to number of adjecent mines for current tile
+                if (!tiles[x][y].getIsMine()) { // if tile is not a mine
+                    tiles[x][y].setAdjacentMines(countAdjacentMines(x, y)); // call countAdjacentMines and set result to number of adjacent mines for current tile
                 }
             }
         }
@@ -80,7 +80,7 @@ public class Board {
                 int newX = x + i; // calculate neighbour x coordinate
                 int newY = y + j; // calculate neighbour y coordinate
 
-                if (isValidCoordinate(newX, newY) && tiles[newX][newY].isMine()) { // if new coordinates are valid and the tile at those coordinates is a mine
+                if (isValidCoordinate(newX, newY) && tiles[newX][newY].getIsMine()) { // if new coordinates are valid and the tile at those coordinates is a mine
                     count++; // increment mine count
                 }
             }
@@ -97,11 +97,11 @@ public class Board {
             return; // return nothing if invalid coordinates
         }
 
-        if (tiles[x][y].isFlipped()){
+        if (tiles[x][y].getIsFlipped()){
             System.out.println("Tile already flipped"); // let user know that tile has already been flipped
         }
 
-        if (!tiles[x][y].isFlipped()){
+        if (!tiles[x][y].getIsFlipped()){
             tiles[x][y].setFlipped(true); // set isFlipped to true if it was previously false
         }
 
@@ -110,7 +110,7 @@ public class Board {
                 for (int j = -1; j <= 1; j++) { // loop through neighbour tiles
                     int newX = x + i;
                     int newY = y + j;
-                    if (isValidCoordinate(newX, newY ) && !tiles[newX][newY].isFlipped()) { // validate neighbour tile coordinates and isFlipped status
+                    if (isValidCoordinate(newX, newY ) && !tiles[newX][newY].getIsFlipped()) { // validate neighbour tile coordinates and isFlipped status
                         flipTile(newX, newY); // recursively flip neighbour tiles
                     }
                 }
@@ -123,7 +123,7 @@ public class Board {
                 for (int x = 0; x < width; x++) { // loop through each element of array
                     System.out.print(tiles[x][y] + " "); // add space between elements for easier view
                 }
-                System.out.println(); // print new line
+                System.out.println(); // print new line after each x axis
             }
         }
     }
