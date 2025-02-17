@@ -1,6 +1,4 @@
 package org.example;
-
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Game {
@@ -23,7 +21,7 @@ public class Game {
             String input = scanner.next(); // read user's first letter or number entered and store as a string
 
             if (input.equalsIgnoreCase("F")) { // if user inputs f or F
-                int x = scanner.nextInt();
+                int x = scanner.nextInt(); // get coordinates after the "f"
                 int y = scanner.nextInt();
                 handleTileFlag(x, y); // call method to flag tile
             } else {
@@ -32,7 +30,7 @@ public class Game {
                 handleTileFlip(x, y); // call method to flip tile
             }
         }
-        restartGame();
+        restartGame(); // call restart game method
     }
 
     private void handleTileFlip(int x, int y) { //
@@ -103,18 +101,18 @@ public class Game {
 
     private void restartGame(){
         while (true) {
-            System.out.println("Play again? Enter Y or N");
+            System.out.println("Play again? Enter Y or N"); // ask user if they want to play again
             String input = scanner.next();
 
-            if (input.equalsIgnoreCase("Y")) {
-                Game newGame = new Game(board.getWidth(), board.getHeight(), board.getNumOfMines());
-                newGame.startGame();
-                break;
-            } else if (input.equalsIgnoreCase("N")) {
-                System.out.println("Thanks for playing Minesweeper!");
+            if (input.equalsIgnoreCase("Y")) { // if user says yes
+                Game newGame = new Game(board.getWidth(), board.getHeight(), board.getNumOfMines()); // create fresh game object
+                newGame.startGame(); // start new game
+                break; // break while loop
+            } else if (input.equalsIgnoreCase("N")) { // if user says no
+                System.out.println("Thanks for playing Minesweeper!"); // display thank you message
                 break;
             } else {
-                System.out.println("Invalid input, please try again.");
+                System.out.println("Invalid input, please try again."); // display error message for invalid input
             }
         }
     }
