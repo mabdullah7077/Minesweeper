@@ -35,14 +35,14 @@ public class Game {
 
     private void handleTileFlip(int x, int y) { //
         if (!isValidMove(x, y)) { // if coordinates are not within board bounds
-            System.out.println("Invalid move. Try again."); // prompt user to enter coords again
+            System.out.println("Invalid move. Try again:"); // prompt user to enter coords again
             return;
         }
 
         board.flipTile(x, y); // flip tile at coordinates x,y
 
 
-        if (board.getTile(x, y).isMine()) { //if flipped tile is a mine
+        if (board.getTile(x, y).getIsMine()) { //if flipped tile is a mine
             endGame(false); // end the game and display game over message
         } else if (checkWin()) { // if game is won
             endGame(true); // end the game and display win message
@@ -51,13 +51,13 @@ public class Game {
 
     private void handleTileFlag(int x, int y) {
         if (!isValidMove(x, y)) { // check if coordinates are within board bound
-            System.out.println("Invalid move. Try again."); // print invalid message error
+            System.out.println("Invalid move. Try again:"); // print invalid message error
             return;
         }
 
         Tile tile = board.getTile(x, y); // get tile coordinates of tile currently being flagged
 
-        if (tile.isFlipped()) { // if tile is already flipped
+        if (tile.getIsFlipped()) { // if tile is already flipped
             System.out.println("You cannot flag a flipped tile."); // print error message
             return;
         }
@@ -69,14 +69,14 @@ public class Game {
         }
 
 
-        tile.setFlagged(!tile.isFlagged()); // switch flag state
+        tile.setFlagged(!tile.getIsFlagged()); // switch flag state
     }
 
     private boolean checkWin() {
         for (int x = 0; x < board.getWidth(); x++) {
             for (int y = 0; y < board.getHeight(); y++) { // loop through every board tile
                 Tile tile = board.getTile(x, y);
-                if (!tile.isMine() && !tile.isFlipped()) { // check that current tile is not a mine and has not been flipped
+                if (!tile.getIsMine() && !tile.getIsFlipped()) { // check that current tile is not a mine and has not been flipped
                     return false; // there are still unflipped empty tiles
                 }
             }
@@ -112,7 +112,7 @@ public class Game {
                 System.out.println("Thanks for playing Minesweeper!"); // display thank you message
                 break;
             } else {
-                System.out.println("Invalid input, please try again."); // display error message for invalid input
+                System.out.println("Invalid input, please try again:"); // display error message for invalid input
             }
         }
     }
