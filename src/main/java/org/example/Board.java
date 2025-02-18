@@ -56,7 +56,7 @@ public class Board {
             int y = random.nextInt(height); // generate random number between 0 and height of board
 
             if (!tiles[x][y].getIsMine()) { // if mine is not already on current tile
-                tiles[x][y] = new Tile(true); // add mine on tile
+                tiles[x][y] = new Tile(true); // replace tile with new tile that has a mine
                 minesPlaced++; // increment minesPlaced
             }
         }
@@ -103,6 +103,7 @@ public class Board {
 
         if (!tiles[x][y].getIsFlipped()){
             tiles[x][y].setFlipped(true); // set isFlipped to true if it was previously false
+            tiles[x][y].setFlagged(false); // fixes bug for flagged tiles staying flagged even if they are flipped
         }
 
         if (tiles[x][y].isTileEmpty()) { // If the tile is empty
@@ -123,7 +124,7 @@ public class Board {
                 for (int x = 0; x < width; x++) { // loop through each element of array
                     System.out.print(tiles[x][y] + " "); // add space between elements for easier view
                 }
-                System.out.println(); // print new line after each x axis
+                System.out.println(); // print new line after each row
             }
         }
     }
