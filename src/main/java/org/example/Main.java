@@ -9,7 +9,7 @@ public class Main {
             System.out.println("Select difficulty: Easy(E)/Medium(M)/Hard(H)"); // user inputs difficulty level
             String input = scanner.next();
             if (input.equalsIgnoreCase("E")){
-                Game game = new Game(3,3,1); // create easy game object
+                Game game = new Game(4,4,1); // create easy game object
                 game.startGame();
                 break;
             } else if (input.equalsIgnoreCase("M")) {
