@@ -57,7 +57,7 @@ public class Tile {
             return String.valueOf(adjacentMines); // return number of adjacent mines
         }
 
-        return "-"; // if tile is flipped  and no adjacent mines, display a dash
+        return "-"; // if tile is flipped and no adjacent mines, display a dash
 
     }
 
