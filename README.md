@@ -38,13 +38,6 @@ javac -d out src/main/java/org/example/*.java
 java -cp out org.example.Main
 ```
 
-## How to play
-
-<!-- Fill in your controls, e.g.: -->
-- Left-click / enter coordinates to reveal a cell
-- Right-click / flag command to mark a suspected mine
-- Clear all non-mine cells to win
-
 ## Notes
 
 Built as a personal project to practise core Java — 2D arrays, recursion (the flood-fill reveal), and game-state logic.
